@@ -39,5 +39,18 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+const items = document.querySelector('.items');
+const setComputer = async () => {
+  const products = await fetchProducts();
+  products
+  .forEach((product) => {
+    const newItem = createProductItemElement({
+      sku: product.id,
+      name: product.title,
+      image: product.thumbnail,
+    });
+    items.appendChild(newItem);
+  }); 
+}; setComputer();
 
-window.onload = () => { };
+window.onload = () => {};
