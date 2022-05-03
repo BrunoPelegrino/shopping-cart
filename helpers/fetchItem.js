@@ -5,6 +5,7 @@ const fetchItem = async (item) => {
   .catch((error) => console.log(error));
   return itemId;
 };
+
 if (typeof module !== 'undefined') {
   module.exports = {
     fetchItem,

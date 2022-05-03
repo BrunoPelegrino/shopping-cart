@@ -51,8 +51,13 @@ const itemFunc = async (e) => {
     });
     cartItems.appendChild(addItem);
 };
-const items = document.querySelector('.items');
+const removeLoad = () => {
+  const load2 = document.querySelector('.loading');
+  load2.remove();
+};
+
 const setComputer = async () => {
+  const items = document.querySelector('.items');
   const products = await fetchProducts();
   products
   .forEach((product) => {
@@ -63,7 +68,7 @@ const setComputer = async () => {
     });
     items.appendChild(newItem);
     newItem.addEventListener('click', itemFunc);
-  }); 
+  }); removeLoad();
 }; setComputer();
 
 function empityCart() {
@@ -74,5 +79,14 @@ function empityCart() {
   });
 } empityCart();
 
+const load = () => {
+  const section = document.querySelector('.items');
+  const createDiv = document.createElement('div');
+  createDiv.innerText = 'carregando...';
+  createDiv.className = 'loading';
+  section.appendChild(createDiv);
+};
+
 window.onload = () => {
+  load();
 };
