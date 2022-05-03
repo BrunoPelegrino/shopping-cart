@@ -66,5 +66,13 @@ const setComputer = async () => {
   }); 
 }; setComputer();
 
+function empityCart() {
+  const btn = document.querySelector('.empty-cart');
+  const ol = document.querySelector('.cart__items');
+  btn.addEventListener('click', () => {
+    ol.innerHTML = '';
+  });
+} empityCart();
+
 window.onload = () => {
 };
