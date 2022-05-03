@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -37,8 +37,20 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  
   return li;
 }
+
+const itemFunc = async (e) => {
+  const cartItems = document.querySelector('.cart__items');
+  const products = await fetchItem(e.target.parentNode.firstChild.innerText);
+    const addItem = createCartItemElement({
+      sku: products.id,
+      name: products.title,
+      salePrice: products.price,
+    });
+    cartItems.appendChild(addItem);
+};
 const items = document.querySelector('.items');
 const setComputer = async () => {
   const products = await fetchProducts();
@@ -50,7 +62,9 @@ const setComputer = async () => {
       image: product.thumbnail,
     });
     items.appendChild(newItem);
+    newItem.addEventListener('click', itemFunc);
   }); 
 }; setComputer();
 
-window.onload = () => {};
+window.onload = () => {
+};
