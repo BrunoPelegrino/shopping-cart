@@ -59,7 +59,7 @@ const removeLoad = () => {
 
 const setComputer = async () => {
   const items = document.querySelector('.items');
-  const products = await fetchProducts();
+  const products = await fetchProducts('computador');
   products
   .forEach((product) => {
     const newItem = createProductItemElement({
@@ -96,9 +96,24 @@ const saveId = () => {
     });
   });
 };
+const createTotalPriceDiv = () => {
+  const section = document.querySelector('.cart');
+  const subtotal = document.createElement('div');
+  subtotal.innerText = 'subtotal: R$';
+  subtotal.className = 'total-price';
+  section.appendChild(subtotal);
+}; 
+
+/* const sumPrices = () => {
+  const cartLi = document.querySelectorAll('.cart__item').price;
+  const subtotal2 = document.querySelector('.total-price');
+  cartLi.reduce((acc, curr) => acc + curr);
+  subtotal2.innerText = acc;
+}; */
 
 window.onload = () => {
   load();
   getSavedCartItems();
   saveId();
+  createTotalPriceDiv();
 };
