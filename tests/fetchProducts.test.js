@@ -1,17 +1,17 @@
 require('../mocks/fetchSimulator');
 const { fetchProducts } = require('../helpers/fetchProducts');
 const computadorSearch = require('../mocks/search');
-
+// muito utilizado https://jestjs.io/docs/expect
 describe('1 - Teste a função fecthProducts', () => {
   it('Verifica se fetchProducts é uma função', () => {
     expect(fetchProducts).toBe('function');
   });
   it('Executa a função fetchProducts com o argumento "computador" e testa se fetch foi chamada', async () => {
-    const response = await fetchProducts('computador');
+    await fetchProducts('computador');
     expect(fetch).toHaveBeenCalled();
   });
   it('Testa se, ao chamar a função fetchProducts com o argumento "computador", a função fetch utiliza o endpoint "https://api.mercadolibre.com/sites/MLB/search?q=computador";', async () => {
-    const response = await fetchProducts('computador');
+    await fetchProducts('computador');
     const URL = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
     expect(fetch).toHaveBeenCalledWith(URL);
   });
