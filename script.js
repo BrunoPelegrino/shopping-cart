@@ -90,4 +90,5 @@ const load = () => {
 
 window.onload = () => {
   load();
+  getSavedCartItems();
 };
