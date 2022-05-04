@@ -88,7 +88,17 @@ const load = () => {
   section.appendChild(createDiv);
 };
 
+const saveId = () => {
+  const cartItem = document.querySelectorAll('.cart__item');
+  cartItem.forEach((item) => {
+    item.addEventListener('click', () => {
+      item.remove();
+    });
+  });
+};
+
 window.onload = () => {
   load();
   getSavedCartItems();
+  saveId();
 };
