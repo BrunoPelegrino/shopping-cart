@@ -50,6 +50,7 @@ const itemFunc = async (e) => {
       salePrice: products.price,
     });
     cartItems.appendChild(addItem);
+    saveCartItems();
 };
 const removeLoad = () => {
   const load2 = document.querySelector('.loading');
