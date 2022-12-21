@@ -5,6 +5,33 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function pegaPrice(textoLi) {
+  const arrayTextoLi = textoLi.split('');
+  console.log(arrayTextoLi);
+  const priceDaLi = [];
+  for (let index = arrayTextoLi.length; index > 0; index -= 1) {
+    if (arrayTextoLi[index] === '$') {
+      break;
+    } else {
+      priceDaLi.unshift(arrayTextoLi[index]);
+    }
+  }
+  price = parseFloat(priceDaLi.join('')); 
+  return price;
+}
+
+function calculaTotal() {
+  const liCarrinho = document.querySelectorAll('.cart__item');
+  const arrayInnerText = [];
+  liCarrinho.forEach((li) => arrayInnerText.push(li.innerText));
+  console.log(arrayInnerText);
+  const precos = arrayInnerText.map((text) => pegaPrice(text));
+  console.log(precos);
+  const total = precos.reduce((final, valor) => final + valor, 0);
+  const preco = document.querySelector('.total-price');
+  preco.innerText = total;  
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -30,6 +57,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  calculaTotal();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -37,7 +65,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  
+  calculaTotal();
   return li;
 }
 
@@ -55,6 +83,7 @@ const itemFunc = async (e) => {
 const removeLoad = () => {
   const load2 = document.querySelector('.loading');
   load2.remove();
+  calculaTotal();
 };
 
 const setComputer = async () => {
@@ -77,7 +106,8 @@ function empityCart() {
   const ol = document.querySelector('.cart__items');
   btn.addEventListener('click', () => {
     ol.innerHTML = '';
-  });
+    calculaTotal();
+  }); 
 } empityCart();
 
 const load = () => {
@@ -93,27 +123,22 @@ const saveId = () => {
   cartItem.forEach((item) => {
     item.addEventListener('click', () => {
       item.remove();
+      calculaTotal();
     });
   });
 };
-const createTotalPriceDiv = () => {
-  const section = document.querySelector('.cart');
-  const subtotal = document.createElement('div');
-  subtotal.innerText = 'subtotal: R$';
-  subtotal.className = 'total-price';
-  section.appendChild(subtotal);
-}; 
 
-/* const sumPrices = () => {
-  const cartLi = document.querySelectorAll('.cart__item').price;
-  const subtotal2 = document.querySelector('.total-price');
-  cartLi.reduce((acc, curr) => acc + curr);
-  subtotal2.innerText = acc;
+ /* const createTotalPriceDiv = () => {
+  const span = document.querySelector('.cart');
+  const subtotal = document.createElement('span');
+  subtotal.innerText = 'subtotal: R$';
+  span.appendChild(subtotal);
 }; */
 
 window.onload = () => {
   load();
   getSavedCartItems();
   saveId();
-  createTotalPriceDiv();
+  // createTotalPriceDiv();
+  calculaTotal();
 };
